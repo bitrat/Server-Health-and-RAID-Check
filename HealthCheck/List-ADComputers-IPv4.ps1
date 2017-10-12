@@ -1,0 +1,2 @@
+﻿# Get a list of all computers, the operating system version, the service pack, and the IP address from Active Directory
+Get-ADComputer -Filter * -Properties ipv4Address, OperatingSystem, OperatingSystemServicePack | Format-List name, ipv4*, oper*
