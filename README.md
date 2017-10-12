@@ -10,7 +10,7 @@
 
 ## Prerequisites
 * Powershell v4 (On windows 7 PC's that means installing WMF 5.1, for example)
-* For Run-SystemReport script - Assume Gallagher Access control application 
+* For Run-SystemReport script - Assume any Application daily backups and archives you want listed in weekly report :
     * backups go to C:\Backup
     * archives go to C:\Archives
 
