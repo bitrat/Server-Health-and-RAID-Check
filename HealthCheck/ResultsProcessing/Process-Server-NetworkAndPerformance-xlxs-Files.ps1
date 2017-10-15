@@ -63,7 +63,7 @@ Write-Output "`n------------- NETWORK TRAFFIC ---------"
 
 # CHANGE
 # Create the folder C:\HealthCheck\NetworkTrafficResults to Output cleaned up Results
-if ((Get-ChildItem "C:\HealthCheck\" -Filter *Performance_Stats*.xlsx) -And (Get-ChildItem "C:\HealthCheck\" -Filter *Performance_Stats*.csv)) {
+if ((Get-ChildItem "C:\HealthCheck\" -Filter *Network_Traffic*.xlsx) -And (Get-ChildItem "C:\HealthCheck\" -Filter *Network_Traffic*.csv)) {
  Get-ChildItem "C:\HealthCheck\" -Filter *Network_Traffic*.xlsx | 
     Foreach-Object { 
         $content = Get-Content $_.FullName 
@@ -82,7 +82,20 @@ if ((Get-ChildItem "C:\HealthCheck\" -Filter *Performance_Stats*.xlsx) -And (Get
         # Select just the Columns with the actual values
         # Export xlsx file to another directory, otherwise it becomes part of an infinite processing loop
         $NetworkData = $Imported | Select-Object 'DateTime','BytesReceived','BytesSent','BytesTotal'
-        $NetworkData | Export-Excel -Path "C:\HealthCheck\NetworkTrafficResults\$new_filename.xlsx" 
+        #$NetworkData | Export-Excel -Path "C:\HealthCheck\Results\NetworkTrafficResults\$new_filename.xlsx" 
+        $NetworkData
+
+        $c = New-ExcelChart -Title 'Network Traffic' `
+            -ChartType Line  `
+            -XRange "Network[DateTime]" `
+            -YRange @("Network[BytesReceived]","Network[BytesSent]","Network[BytesTotal]") `
+            -NoLegend
+            #-SeriesHeader 'BytesReceived','BytesSent','BytesTotal'
+
+    # TO DO - fix - Series Legend in Excel sheet shows up wrong
+        $NetworkData | 
+            #Export-Excel -Path "C:\HealthCheck\Results\NetworkTrafficResults\$new_filename.xlsx" -Numberformat '0.00' -AutoSize -TableName Network -Show -ExcelChartDefinition $c
+            Export-Excel -Path "C:\HealthCheck\Results\NetworkTrafficResults\$new_filename.xlsx" -Numberformat '0.00' -AutoSize -TableName Network -ExcelChartDefinition $c
 
         # Move the Raw Data .xlxs and .csv files
         $origRawDataFolder = "C:\HealthCheck\" ## enter current source folder
@@ -132,7 +145,7 @@ if ((Get-ChildItem "C:\HealthCheck\" -Filter *Performance_Stats*.xlsx)-And (Get-
         # Select just the Columns with the actual values - i.e. Totals/Averages
         # Export xlsx file to another directory, otherwise it becomes part of an infinite processing loop
         $NetworkDataPerf = $ImportedPerf | Select-Object 'DateTime','PercentProcessorTimeTotal','PercentProcessUserTimeTotal','PercentProcessPrivTimeTotal','ProcessorInterruptPerSecTotal','PercentProcessorInterruptTimeTotal','ProcessorDPCSQueuePerSecTotal','AvgDiskWriteQueueLengthTotal','AvgDiskSecPerReadTotal','AvgDiskSecPerWriteTotal','DiskPercentIdleTimeTotal','LogicalDiskFreePercentFree_d','LogicalDiskFreePercentFree_c','LogicalDiskFreePercentFree_hd5','Memory_AvailBytes','Memory_CacheBytes','Memory_PercentCommittedBytesInUse','BytesReceived','BytesSent','BytesTotal'
-        $NetworkDataPerf | Export-Excel -Path "C:\HealthCheck\PerformanceResults\$new_filenamePerf.xlsx" 
+        $NetworkDataPerf | Export-Excel -Path "C:\HealthCheck\Results\PerformanceResults\$new_filenamePerf.xlsx" 
 
         # Move the Raw Data .xlxs and .csv files
         $origRawDataFolder = "C:\HealthCheck\" ## enter current source folder
