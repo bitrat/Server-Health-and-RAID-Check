@@ -24,5 +24,5 @@ $all = "\Network Interface(*)\Bytes Received/sec",
 
 "\Network Interface(*)\Bytes Total/sec"
         
-# Sample every 10 seconds for 13 hours - use in a scheduled task script, starting at 6 am weekedays
-Get-Counter -Counter $all -SampleInterval 10 -MaxSamples (6*60*13) | Export-Counter -Path $fileOut -FileFormat CSV -Force
+# Sample every 15 seconds for 13 hours - use in a scheduled task script, starting at 6 am weekedays
+Get-Counter -Counter $all -SampleInterval 15 -MaxSamples (4*60*13) | Export-Counter -Path $fileOut -FileFormat CSV -Force
