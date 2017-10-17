@@ -48,7 +48,6 @@ Note: The processing script relies on the HealthCheck folder structure for proce
 
 ## TO DO :
 * Addition to Processing script - generate max, min, average, peak of Network and Server Performance data 
-* deal with scheduled task password changes (enforced by domain policy) more elegantly (if possible)
 
 
 
