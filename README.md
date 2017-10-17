@@ -37,7 +37,7 @@ The audio alerting is for environments where no-one will do a visual check of RA
 These scripts can be run (on a daily/weekly etc basis) via scheduled tasks.
 
 ## Processing Data log scripts
-* cleanup csv data log files, convert to xlxs, and line graph - **Process-Server-NetworkAndPerformance-xlxs-Files.ps1
+* cleanup csv data log files, convert to xlxs, and line graph - **Process-Server-NetworkAndPerformance-xlxs-Files.ps1**
 
 Note: The processing script relies on the HealthCheck folder structure for processing and filing raw Data after processing.
 
