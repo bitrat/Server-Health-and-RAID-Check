@@ -45,6 +45,7 @@ Note: The processing script relies on the HealthCheck folder structure for proce
 * **Move-Files.ps1** - HTML Reports and csv files can be moved off the server onto a workstation.
 * **Copy-FilesToServer.ps1** - Copy files from a domain workstation to the domain server
 * **Remove-Directory.ps1** - Remove HealthCheck folder from remote server
+* **Calc-FolderSize.ps1** - Check specific folder sizes (keep track of resource consumption)
 
 ## TO DO :
 * Addition to Processing script - generate max, min, average, peak of Network and Server Performance data 
