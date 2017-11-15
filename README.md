@@ -46,6 +46,7 @@ Note: The processing script relies on the HealthCheck folder structure for proce
 * **Copy-FilesToServer.ps1** - Copy files from a domain workstation to the domain server
 * **Remove-Directory.ps1** - Remove HealthCheck folder from remote server
 * **Calc-FolderSize.ps1** - Check specific folder sizes (keep track of resource consumption)
+* **Check-ADUsers-CorrectGroupandOU.ps1** - Cleanup after People adding Users into Active Directory incorrectly
 
 ## TO DO :
 * Addition to Processing script - generate max, min, average, peak of Network and Server Performance data 
