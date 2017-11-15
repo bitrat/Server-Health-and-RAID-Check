@@ -1,0 +1,1 @@
+﻿redircmp "OU=Workstations,OU=ABC,OU=Wellington,OU=NZ,DC=ABC TECH,DC=COMPANY"
