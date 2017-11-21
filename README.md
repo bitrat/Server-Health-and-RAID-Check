@@ -24,7 +24,7 @@ HTML Report generated - with Stats and RAID Errors:
 * **Run-SystemReport_with_RAID_Events_P440ar.ps1** - HPE Smart Array 440ar RAID controller
 
 ## Audio alerting on RAID Error events script
-Audio and Message box alerting on RAID ERRORS - LSI RAID controller MegaRAID java program eventlog analysis:
+Audio and Message box alerting on RAID ERRORS - Performs eventlog analysis- LSI RAID controller MegaRAID java program and the HP P440ar RAID :
 * **RaidAlert_On_Events.ps1** - Generic script using Get-EventLog
 * **RaidAlert_On_Events_LSI.ps1** - Uses Get-Eventlog and same Creds as the local computer you are querying from
 * **RaidAlert_On_Events_P440ar.ps1** - Uses Get-WinEvent (and CredentialManager Module) to get eventlog from a computer that requires different creds
