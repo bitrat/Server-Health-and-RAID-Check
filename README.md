@@ -25,7 +25,9 @@ HTML Report generated - with Stats and RAID Errors:
 
 ## Audio alerting on RAID Error events script
 Audio and Message box alerting on RAID ERRORS - LSI RAID controller MegaRAID java program eventlog analysis:
-* **RaidAlert_On_Events.ps1**
+* **RaidAlert_On_Events.ps1** - Generic script using Get-EventLog
+* **RaidAlert_On_Events_LSI.ps1** - Uses Get-Eventlog and same Creds as the local computer you are querying from
+* **RaidAlert_On_Events_P440ar.ps1** - Uses Get-WinEvent (and CredentialManager Module) to get eventlog from a computer that requires different creds
 * **Beep.ps1**
 
 The audio alerting is for environments where no-one will do a visual check of RAID state.
@@ -51,6 +53,8 @@ Note: The processing script relies on the HealthCheck folder structure for proce
 
 ## TO DO :
 * Addition to Processing script - generate max, min, average, peak of Network and Server Performance data 
+
+
 
 
 
