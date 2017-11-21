@@ -1,11 +1,11 @@
-﻿# CCTV ARCHIVER RAID ALERTING - RaidAlert_On_Events.ps1
+﻿# ARCHIVER RAID ALERTING - RaidAlert_On_Events_LSI.ps1
 
-# MessageBox & Audio Alerts on Workstation PC
+# MessageBox & Audio Alerts on Client PC
 # Scheduled Task - Runs this script once every day - 7:30 am to 5 pm Mon- Fri
-# Script scrapes the CCTV Archiver MR_MONITOR EventLog for Errors
+# Script scrapes the Archiver MR_MONITOR EventLog for Errors
 
-# Check remote computer (CCTV Archiver) is accessible 
-$server = "ABC TECH Server Name"
+# Check remote computer (Archiver) is accessible 
+$server = "ABC TECH Server Name2"
 if (Test-Connection -ComputerName $server -Quiet -Count 1)
 {
     Write-Output "----------------------------------------------------------------------------------- "
@@ -15,14 +15,14 @@ if (Test-Connection -ComputerName $server -Quiet -Count 1)
 # Audio Alert sequence - when RAID Error Found
 $BeepSequence = "C:\Powershell\Beep.ps1"
 
+$EventLogName = "Application"
+$EventLogSource = "MR_MONITOR"
+
 # RAID Error Event list
 $RAID_events_reference = "C:\HealthCheck\RAID\LSI_RAID_EventIDs.txt"
 
 # Stops processing when it finds first alertable LSI RAID Error eventID
 $EventIDs = Get-Content $RAID_events_reference
-
-$EventLogName = "Application"
-$EventLogSource = "MR_MONITOR"
 
 # Define Time to check events 
 # Check last 25 hours (Overlap + in case daylight savings time between Client PC and Archiver PC is out)
@@ -56,8 +56,9 @@ Function Check-RAID{
         
         {
            # Print out the First Event detail - that triggered
-           Get-EventLog -ComputerName $server -LogName $EventLogName -Source $EventLogSource -InstanceID $EventID -After $TimeFrame -Newest 1
- 
+           $RAID_error = Get-EventLog -ComputerName $server -LogName $EventLogName -Source $EventLogSource -InstanceID $EventID -After $TimeFrame -Newest 1
+           $RAID_error
+
         # Trigger Audio
         Write-Output "----------------------------------------------------------------------------------- "
         Write-Output "----------------------------------------------------------------------------------- "
@@ -65,6 +66,14 @@ Function Check-RAID{
         Write-Output "---                 Beep freq: '$Freq' and duration: '$Duration'                ---"
         Write-Output "---                                                                             --- "
         Write-Output "----------------------------------------------------------------------------------- "
+
+        #Create an Output file containing the RAID Error and Message
+        try {
+            $RAID_error | Add-Content 'C:\HealthCheck\RAID\RAID_LSI_Error_Output.txt'
+        }
+        Catch {
+            Write-Output "---  Could not Write the RAID Error to the C:\HealthCheck\RAID\RAID_LSI_Error_Output.txt File   --- "
+        }
            
            # Start separate process is started for BEEPS so the Message Box doesn't silence the beeps until ERROR acknowledged
            $beepBox = Start-Process powershell.exe -Argument $BeepSequence -PassThru -WindowStyle Hidden
